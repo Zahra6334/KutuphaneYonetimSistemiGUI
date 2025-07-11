@@ -1,0 +1,9 @@
+[
+  {
+    "Id": 1,
+    "UserId": 2,
+    "ISBN": "978-0-545-01022-1",
+    "RequestDate": "2023-05-15T10:30:00",
+    "IsApproved": true
+  }
+]
