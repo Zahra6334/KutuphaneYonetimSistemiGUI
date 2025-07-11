@@ -12,23 +12,23 @@
     "Title": "tutunamayanlar",
     "Author": "oğuz atay",
     "PublishYear": 0,
-    "IsAvailable": true,
-    "BorrowedBy": null
+    "IsAvailable": false,
+    "BorrowedBy": "ahmet"
   },
   {
     "ISBN": "123",
     "Title": "sefiler",
     "Author": "Victor Hugo",
     "PublishYear": 0,
-    "IsAvailable": true,
-    "BorrowedBy": null
+    "IsAvailable": false,
+    "BorrowedBy": "ayşe"
   },
   {
     "ISBN": "3725",
     "Title": "insan neyle yaşar",
     "Author": "l.n.tolstoy",
     "PublishYear": 0,
-    "IsAvailable": true,
-    "BorrowedBy": null
+    "IsAvailable": false,
+    "BorrowedBy": "kullanici_2"
   }
 ]

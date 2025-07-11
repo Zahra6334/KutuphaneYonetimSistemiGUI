@@ -1,9 +1,32 @@
 [
   {
-    "Id": 1,
-    "UserId": 2,
+    "Username": null,
     "ISBN": "978-0-545-01022-1",
     "RequestDate": "2023-05-15T10:30:00",
-    "IsApproved": true
+    "Status": "Onaylandı"
+  },
+  {
+    "Username": "ahmet",
+    "ISBN": "978",
+    "RequestDate": "2025-07-11T13:01:14.6531868+03:00",
+    "Status": "Onaylandı"
+  },
+  {
+    "Username": "ayşe",
+    "ISBN": "123",
+    "RequestDate": "2025-07-11T13:02:05.4805543+03:00",
+    "Status": "Onaylandı"
+  },
+  {
+    "Username": "kullanici_2",
+    "ISBN": "3725",
+    "RequestDate": "2025-07-11T13:08:06.4362492+03:00",
+    "Status": "Onaylandı"
+  },
+  {
+    "Username": "kullanici_2",
+    "ISBN": "3725",
+    "RequestDate": "2025-07-11T13:22:29.9887681+03:00",
+    "Status": "Onaylandı"
   }
 ]

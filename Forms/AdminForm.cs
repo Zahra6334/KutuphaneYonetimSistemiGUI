@@ -10,29 +10,35 @@ namespace KutuphaneYonetimSistemiGUI.Forms
     public partial class AdminForm : Form
     {
         private readonly BookManager _bookManager;
+        private readonly LoanManager _loanManager;
         private DataGridView dgvBooks;
-        private Button btnAdd, btnDelete, btnUpdate, btnRefresh;
+        private Button btnAdd, btnDelete, btnUpdate, btnRefresh, btnLoan;
         private TextBox txtTitle, txtAuthor, txtISBN;
-        private Label lblTitle, lblAuthor, lblISBN, lblHeader;
+        private Label lblTitle, lblAuthor, lblISBN, lblHeader, lblLoanInfo;
+        private ComboBox cmbUsers;
+        private DateTimePicker dtpLoanDate;
+        private DataGridView dgvLoanRequests;
+        private Button btnApproveSelectedRequest;
+
 
         public AdminForm()
         {
             _bookManager = new BookManager();
+            _loanManager = new LoanManager();
             InitializeComponent();
             LoadBooks();
-            
+            LoadPendingLoanRequests();
+
         }
 
         private void InitializeComponent()
         {
-            // Form ayarları
             this.Text = "Admin Paneli - Kitap Yönetimi";
             this.ClientSize = new Size(900, 600);
             this.BackColor = Color.White;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Font = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            // Başlık
             lblHeader = new Label
             {
                 Text = "Kütüphane Yönetim Sistemi - Admin Paneli",
@@ -43,7 +49,6 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             };
             this.Controls.Add(lblHeader);
 
-            // DataGridView
             dgvBooks = new DataGridView
             {
                 Location = new Point(20, 60),
@@ -68,7 +73,6 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             };
             this.Controls.Add(dgvBooks);
 
-            // Kontroller paneli
             Panel controlPanel = new Panel
             {
                 Location = new Point(590, 60),
@@ -78,50 +82,15 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             };
             this.Controls.Add(controlPanel);
 
-            // Kontroller
-            lblTitle = new Label
-            {
-                Text = "Kitap Başlığı:",
-                Location = new Point(15, 30),
-                AutoSize = true
-            };
+            lblTitle = new Label { Text = "Kitap Başlığı:", Location = new Point(15, 30), AutoSize = true };
+            txtTitle = new TextBox { Location = new Point(15, 60), Width = 260, BorderStyle = BorderStyle.FixedSingle };
 
-            txtTitle = new TextBox
-            {
-                Location = new Point(15, 60),
-                Width = 260,
-                BorderStyle = BorderStyle.FixedSingle
-            };
+            lblAuthor = new Label { Text = "Yazar:", Location = new Point(15, 100), AutoSize = true };
+            txtAuthor = new TextBox { Location = new Point(15, 130), Width = 260, BorderStyle = BorderStyle.FixedSingle };
 
-            lblAuthor = new Label
-            {
-                Text = "Yazar:",
-                Location = new Point(15, 100),
-                AutoSize = true
-            };
+            lblISBN = new Label { Text = "ISBN:", Location = new Point(15, 170), AutoSize = true };
+            txtISBN = new TextBox { Location = new Point(15, 200), Width = 260, BorderStyle = BorderStyle.FixedSingle };
 
-            txtAuthor = new TextBox
-            {
-                Location = new Point(15, 130),
-                Width = 260,
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            lblISBN = new Label
-            {
-                Text = "ISBN:",
-                Location = new Point(15, 170),
-                AutoSize = true
-            };
-
-            txtISBN = new TextBox
-            {
-                Location = new Point(15, 200),
-                Width = 260,
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Butonlar
             btnAdd = new Button
             {
                 Text = "Kitap Ekle",
@@ -174,7 +143,47 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             btnRefresh.FlatAppearance.BorderSize = 0;
             btnRefresh.Click += BtnRefresh_Click;
 
-            // Kontrolleri panele ekle
+            cmbUsers = new ComboBox
+            {
+                Location = new Point(15, 430),
+                Width = 260,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Visible = false
+            };
+            cmbUsers.Items.AddRange(new string[] { "ahmet", "ayşe", "mehmet" });
+
+            dtpLoanDate = new DateTimePicker
+            {
+                Location = new Point(15, 460),
+                Width = 260,
+                Format = DateTimePickerFormat.Short,
+                Value = DateTime.Today,
+                Visible = false
+            };
+
+            btnLoan = new Button
+            {
+                Text = "Ödünç Ver",
+                Location = new Point(15, 490),
+                Size = new Size(260, 40),
+                BackColor = Color.MediumPurple,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                Visible = false
+            };
+            btnLoan.FlatAppearance.BorderSize = 0;
+            btnLoan.Click += BtnLoan_Click;
+
+            lblLoanInfo = new Label
+            {
+                Location = new Point(15, 430),
+                AutoSize = true,
+                ForeColor = Color.Maroon,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Visible = false
+            };
+
             controlPanel.Controls.Add(lblTitle);
             controlPanel.Controls.Add(txtTitle);
             controlPanel.Controls.Add(lblAuthor);
@@ -185,8 +194,38 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             controlPanel.Controls.Add(btnUpdate);
             controlPanel.Controls.Add(btnDelete);
             controlPanel.Controls.Add(btnRefresh);
+            controlPanel.Controls.Add(cmbUsers);
+            controlPanel.Controls.Add(dtpLoanDate);
+            controlPanel.Controls.Add(btnLoan);
+            controlPanel.Controls.Add(lblLoanInfo);
+            // Bekleyen istekleri gösteren DataGridView
+            dgvLoanRequests = new DataGridView
+            {
+                Location = new Point(20, 370), // Alt kısımda
+                Size = new Size(550, 150),
+                ReadOnly = true,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                BackgroundColor = Color.White,
+                Visible = true
+            };
+            this.Controls.Add(dgvLoanRequests);
 
-            // DataGridView event'ı
+            // Onayla butonu
+            btnApproveSelectedRequest = new Button
+            {
+                Text = "Seçili İsteği Onayla",
+                Location = new Point(590, 570),
+                Size = new Size(290, 40),
+                BackColor = Color.MediumSeaGreen,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnApproveSelectedRequest.FlatAppearance.BorderSize = 0;
+            btnApproveSelectedRequest.Click += BtnApproveSelectedRequest_Click;
+            this.Controls.Add(btnApproveSelectedRequest);
+
+
             dgvBooks.SelectionChanged += (sender, e) =>
             {
                 if (dgvBooks.SelectedRows.Count > 0)
@@ -197,10 +236,58 @@ namespace KutuphaneYonetimSistemiGUI.Forms
                         txtTitle.Text = selectedBook.Title;
                         txtAuthor.Text = selectedBook.Author;
                         txtISBN.Text = selectedBook.ISBN;
+
+                        if (selectedBook.IsAvailable)
+                        {
+                            cmbUsers.Visible = true;
+                            dtpLoanDate.Visible = true;
+                            btnLoan.Visible = true;
+                            lblLoanInfo.Visible = false;
+                        }
+                        else
+                        {
+                            cmbUsers.Visible = false;
+                            dtpLoanDate.Visible = false;
+                            btnLoan.Visible = false;
+                            lblLoanInfo.Text = $"Bu kitap {selectedBook.BorrowedBy} tarafından ödünç alınmış.";
+                            lblLoanInfo.Visible = true;
+                        }
                     }
                 }
             };
         }
+        private void LoadPendingLoanRequests()
+        {
+            var pendingRequests = _loanManager.GetPendingRequests();
+            dgvLoanRequests.DataSource = null;
+            dgvLoanRequests.DataSource = pendingRequests;
+
+            if (pendingRequests.Any())
+            {
+                dgvLoanRequests.Columns["Username"].HeaderText = "Kullanıcı";
+                dgvLoanRequests.Columns["ISBN"].HeaderText = "ISBN";
+                dgvLoanRequests.Columns["RequestDate"].HeaderText = "Talep Tarihi";
+                dgvLoanRequests.Columns["Status"].HeaderText = "Durum";
+            }
+        }
+        private void BtnApproveSelectedRequest_Click(object sender, EventArgs e)
+        {
+            if (dgvLoanRequests.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen bir istek seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedRequest = dgvLoanRequests.SelectedRows[0].DataBoundItem as LoanRequest;
+            if (selectedRequest != null)
+            {
+                _loanManager.ApproveRequest(selectedRequest);
+                MessageBox.Show("İstek başarıyla onaylandı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadBooks(); // kitap durumu da güncellenir
+                LoadPendingLoanRequests(); // yeniden yükle
+            }
+        }
+
 
         private void LoadBooks()
         {
@@ -327,11 +414,38 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             ClearFields();
         }
 
+        private void BtnLoan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbUsers.SelectedItem == null)
+                {
+                    MessageBox.Show("Lütfen bir kullanıcı seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string username = cmbUsers.SelectedItem.ToString();
+                string isbn = txtISBN.Text.Trim();
+
+                _loanManager.LoanBook(username, isbn);
+                LoadBooks();
+                ClearFields();
+
+                MessageBox.Show("Kitap başarıyla ödünç verildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void ClearFields()
         {
             txtTitle.Clear();
             txtAuthor.Clear();
             txtISBN.Clear();
+            cmbUsers.SelectedItem = null;
+            dtpLoanDate.Value = DateTime.Today;
         }
     }
 }

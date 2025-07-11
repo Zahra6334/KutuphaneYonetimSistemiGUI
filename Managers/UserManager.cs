@@ -12,7 +12,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
     {
         private List<User> _users;
         private User _currentUser;
-        private readonly string _filePath = "Data/users.json";
+        private readonly string _filePath = @"C:\Users\ZAHRA\source\repos\KutuphaneYonetimSistemiGUI\KutuphaneYonetimSistemiGUI\Data\users.json";
 
         public UserManager()
         {
