@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace KutuphaneYonetimSistemiGUI.Models
 {
-    public class LoanRequest
+    public class LoanRequest //Ödünç İstek) classı
     {
-        public string Username { get; set; }      // Kim istedi
-        public string ISBN { get; set; }          // Hangi kitabı
-        public DateTime RequestDate { get; set; } // Ne zaman istedi
-        public string Status { get; set; } = "Beklemede"; // Beklemede / Onaylandı / Reddedildi
+        public string Username { get; set; }      
+        public string ISBN { get; set; }          
+        public DateTime RequestDate { get; set; } 
+        public string Status { get; set; } = "Beklemede"; 
     }
 }

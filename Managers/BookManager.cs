@@ -1,6 +1,7 @@
 ﻿
 using KutuphaneYonetimSistemiGUI.Interfaces;
 using KutuphaneYonetimSistemiGUI.Models;
+using KutuphaneYonetimSistemiGUI.sqlbaglantest;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -43,8 +44,11 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 throw new InvalidOperationException("Bu ISBN ile zaten bir kitap mevcut");
 
             _books.Add(book);
+            DatabaseDataProvider db = new DatabaseDataProvider();
+            db.AddBook(book);
             SaveBooks();
         }
+
 
         public void DeleteBook(string isbn)
         {
@@ -56,6 +60,8 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 throw new KeyNotFoundException("Belirtilen ISBN ile kitap bulunamadı");
 
             _books.Remove(bookToRemove);
+            DatabaseDataProvider db = new DatabaseDataProvider();
+            db.DeleteBookByIsbn(isbn);
             SaveBooks();
         }
 
@@ -72,6 +78,8 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 throw new KeyNotFoundException("Güncellenecek kitap bulunamadı");
 
             _books[index] = book;
+            DatabaseDataProvider db = new DatabaseDataProvider();
+            db.UpdateBookByIsbn(book);
             SaveBooks();
         }
 

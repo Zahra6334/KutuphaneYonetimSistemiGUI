@@ -1,4 +1,5 @@
 ﻿using KutuphaneYonetimSistemiGUI.Managers;
+using KutuphaneYonetimSistemiGUI.sqlbaglantest;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
         private TextBox txtPassword;
         private Button btnLogin;
         private Label lblUsername;
+        private Button button1;
         private Label lblPassword;
 
         public LoginForm()
@@ -23,61 +25,72 @@ namespace KutuphaneYonetimSistemiGUI.Forms
 
         private void InitializeComponent()
         {
-            this.txtUsername = new TextBox();
-            this.txtPassword = new TextBox();
-            this.btnLogin = new Button();
-            this.lblUsername = new Label();
-            this.lblPassword = new Label();
-
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(50, 50);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(95, 20);
-            this.lblUsername.Text = "Kullanıcı Adı:";
-
             // 
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(160, 47);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(150, 27);
-
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(50, 100);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(42, 20);
-            this.lblPassword.Text = "Şifre:";
-
+            this.txtUsername.Size = new System.Drawing.Size(150, 22);
+            this.txtUsername.TabIndex = 1;
             // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(160, 97);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(150, 27);
+            this.txtPassword.Size = new System.Drawing.Size(150, 22);
+            this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
-
             // 
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(160, 150);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(94, 29);
+            this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Giriş Yap";
             this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new EventHandler(this.btnLogin_Click);
-
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Location = new System.Drawing.Point(50, 50);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(82, 16);
+            this.lblUsername.TabIndex = 0;
+            this.lblUsername.Text = "Kullanıcı Adı:";
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(50, 100);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(37, 16);
+            this.lblPassword.TabIndex = 2;
+            this.lblPassword.Text = "Şifre:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(11, 195);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "db bagla";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // LoginForm
             // 
             this.ClientSize = new System.Drawing.Size(380, 230);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblPassword);
@@ -85,9 +98,9 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             this.Controls.Add(this.btnLogin);
             this.Name = "LoginForm";
             this.Text = "Kütüphane Yönetim Sistemi - Giriş";
-
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -123,6 +136,12 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             {
                 MessageBox.Show("Kullanıcı adı veya şifre hatalı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DatabaseDataProvider db = new DatabaseDataProvider();
+            db.TestConnection();
         }
     }
 }

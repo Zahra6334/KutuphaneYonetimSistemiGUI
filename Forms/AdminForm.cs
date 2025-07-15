@@ -328,7 +328,8 @@ namespace KutuphaneYonetimSistemiGUI.Forms
                 {
                     Title = txtTitle.Text.Trim(),
                     Author = txtAuthor.Text.Trim(),
-                    ISBN = txtISBN.Text.Trim()
+                    ISBN = txtISBN.Text.Trim(),
+                    PublishYear = 0
                 };
 
                 _bookManager.AddBook(newBook);

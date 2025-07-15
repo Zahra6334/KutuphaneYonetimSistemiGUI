@@ -28,5 +28,23 @@
     "ISBN": "3725",
     "RequestDate": "2025-07-11T13:22:29.9887681+03:00",
     "Status": "Onaylandı"
+  },
+  {
+    "Username": "kullanici_2",
+    "ISBN": "978",
+    "RequestDate": "2025-07-12T12:04:20.2835074+03:00",
+    "Status": "Onaylandı"
+  },
+  {
+    "Username": "mehmet",
+    "ISBN": "978",
+    "RequestDate": "2025-07-12T12:06:21.6816202+03:00",
+    "Status": "Onaylandı"
+  },
+  {
+    "Username": "ayşe",
+    "ISBN": "123",
+    "RequestDate": "2025-07-15T17:13:22.1720253+03:00",
+    "Status": "Onaylandı"
   }
 ]

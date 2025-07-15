@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json; // EKSİK OLAN BU!
+using Newtonsoft.Json; 
 
 namespace KutuphaneYonetimSistemiGUI.Managers
 {
@@ -49,7 +49,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
         {
             return _currentUser;
         }
-        public List<User> GetAllUsers() // 🔥 BU METODU EKLEDİK
+        public List<User> GetAllUsers() 
         {
             return _users;
         }
