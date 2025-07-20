@@ -1,16 +1,8 @@
 [
   {
-    "ISBN": "098",
-    "Title": "Suç ve Ceza",
-    "Author": "Fyodor Dostoyevski",
-    "PublishYear": 0,
-    "IsAvailable": true,
-    "BorrowedBy": null
-  },
-  {
     "ISBN": "978",
     "Title": "tutunamayanlar",
-    "Author": "oğuz atay",
+    "Author": "oğuz ATAY",
     "PublishYear": 0,
     "IsAvailable": true,
     "BorrowedBy": null
@@ -27,6 +19,14 @@
     "ISBN": "3725",
     "Title": "insan neyle yaşar",
     "Author": "l.n.tolstoy",
+    "PublishYear": 0,
+    "IsAvailable": true,
+    "BorrowedBy": null
+  },
+  {
+    "ISBN": "1237",
+    "Title": "sefiler",
+    "Author": "Victor Hugo",
     "PublishYear": 0,
     "IsAvailable": true,
     "BorrowedBy": null
