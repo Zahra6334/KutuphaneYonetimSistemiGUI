@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\FileStorageProvider .cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +76,7 @@
     </Compile>
     <Compile Include="Interfaces\IBookManager.cs" />
     <Compile Include="Interfaces\ILoanManager.cs" />
+    <Compile Include="Interfaces\IStorageProvider.cs" />
     <Compile Include="Interfaces\IUserManager.cs" />
     <Compile Include="Managers\BookManager.cs" />
     <Compile Include="Managers\LoanManager.cs" />

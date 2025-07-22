@@ -51,12 +51,24 @@
     "Username": "kullanici_2",
     "ISBN": "1237",
     "RequestDate": "2025-07-21T00:44:10.1335141+03:00",
-    "Status": "Beklemede"
+    "Status": "Onaylandı"
   },
   {
     "Username": "kullanici_2",
     "ISBN": "978",
     "RequestDate": "2025-07-21T00:44:13.9558823+03:00",
     "Status": "Beklemede"
+  },
+  {
+    "Username": "kullanici_2",
+    "ISBN": "123",
+    "RequestDate": "2025-07-22T16:20:13.6265251+03:00",
+    "Status": "Beklemede"
+  },
+  {
+    "Username": "kullanici_2",
+    "ISBN": "1237",
+    "RequestDate": "2025-07-22T17:14:58.3946329+03:00",
+    "Status": "Onaylandı"
   }
 ]

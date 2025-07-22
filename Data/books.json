@@ -28,7 +28,7 @@
     "Title": "sefiler",
     "Author": "Victor Hugo",
     "PublishYear": 0,
-    "IsAvailable": true,
-    "BorrowedBy": null
+    "IsAvailable": false,
+    "BorrowedBy": "kullanici_2"
   }
 ]
