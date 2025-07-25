@@ -66,6 +66,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             this.txtPassword.Size = new System.Drawing.Size(150, 22);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // btnLogin
             // 
@@ -101,7 +102,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
-            this.button1.Text = "db bagla";
+            this.button1.Text = "kaydol";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -238,8 +239,8 @@ namespace KutuphaneYonetimSistemiGUI.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DatabaseDataProvider db = new DatabaseDataProvider();
-            db.TestConnection();
+            RegisterForm registerForm = new RegisterForm(_userManager);
+            registerForm.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -272,6 +273,11 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             {
                 MessageBox.Show("Kullanıcı adı veya şifre hatalı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

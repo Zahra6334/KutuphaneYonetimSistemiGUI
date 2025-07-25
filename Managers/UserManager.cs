@@ -4,7 +4,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
+using KutuphaneYonetimSistemiGUI.sqlbaglantest;
 
 namespace KutuphaneYonetimSistemiGUI.Managers
 {
@@ -31,12 +32,37 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 SaveUsers();
             }
         }
+        public bool Register(string username, string password, bool isAdmin = false)
+        {
+            // Aynı kullanıcı adıyla bir kullanıcı varsa kayıt başarısız olur
+            if (_users.Exists(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+            DatabaseDataProvider db = new DatabaseDataProvider();
+            // Yeni kullanıcı oluşturuluyor
+            var newUser = new User
+            {
+                Id = _users.Count + 1,
+                Username = username,
+                Password = db.HashPassword(password),
+                IsAdmin = isAdmin
+            };
+
+            
+            db.AddUser(newUser);
+
+            _users.Add(newUser);
+            SaveUsers(); // Dosyaya kaydet
+            return true;
+        }
 
         public bool Login(string username, string password)
         {
+            DatabaseDataProvider db = new DatabaseDataProvider();   
             foreach (var user in _users)
             {
-                if (user.Username == username && user.Password == password)
+                if (user.Username == username && user.Password == db.HashPassword(password))
                 {
                     _currentUser = user;
                     return true;
@@ -58,6 +84,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
             string json = JsonConvert.SerializeObject(_users, Formatting.Indented);
             Directory.CreateDirectory("Data");
             File.WriteAllText(_filePath, json);
+            
 
         }
     }

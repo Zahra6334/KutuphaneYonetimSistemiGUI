@@ -201,7 +201,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             // Bekleyen istekleri gösteren DataGridView
             dgvLoanRequests = new DataGridView
             {
-                Location = new Point(20, 370), // Alt kısımda
+                Location = new Point(20, 370), 
                 Size = new Size(550, 150),
                 ReadOnly = true,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,

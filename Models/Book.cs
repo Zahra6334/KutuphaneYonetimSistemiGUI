@@ -12,8 +12,7 @@ namespace KutuphaneYonetimSistemiGUI.Models
         public string Title { get; set; }
         public string Author { get; set; }
         public int PublishYear { get; set; }
-        public bool IsAvailable { get; set; } = true;
-        // true: Kütüphanede, false: Ödünçte
+        public bool IsAvailable { get; set; } = true;// true: Kütüphanede, false: Ödünçte
         public string BorrowedBy { get; set; }  // Kitabı kim ödünç aldı?
     }
 }

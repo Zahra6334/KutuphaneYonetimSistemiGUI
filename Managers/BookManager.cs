@@ -85,7 +85,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
 
         public List<Book> GetAllBooks()
         {
-            return new List<Book>(_books); // Dışarıya kopya döndür
+            return new List<Book>(_books); // Dışarıya kopyası  döndür
         }
 
         public Book GetBookByISBN(string isbn)

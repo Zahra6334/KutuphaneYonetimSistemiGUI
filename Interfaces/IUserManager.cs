@@ -11,5 +11,7 @@ namespace KutuphaneYonetimSistemiGUI.Interfaces
     {
         bool Login(string username, string password);
         User GetCurrentUser();
+        bool Register(string username, string password, bool isAdmin = false);
+
     }
 }

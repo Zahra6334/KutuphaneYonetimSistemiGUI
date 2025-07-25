@@ -80,7 +80,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 book.BorrowedBy = null;
                 SaveBooks();
 
-                // İlgili loan kaydını da güncelleyebilirsin (opsiyonel)
+                
                 var lastLoan = _loanRequests.LastOrDefault(l => l.ISBN == isbn && l.Status == "Onaylandı");
                 if (lastLoan != null)
                 {
@@ -99,7 +99,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
             else
             {
                 _loanRequests = new List<LoanRequest>();
-                SaveLoans(); // boş dosya oluştur
+                SaveLoans(); 
             }
         }
 

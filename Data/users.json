@@ -10,5 +10,17 @@
     "Username": "kullanici1",
     "Password": "sifre123",
     "IsAdmin": false
+  },
+  {
+    "Id": 3,
+    "Username": "nurhat",
+    "Password": "ensevdiğim",
+    "IsAdmin": false
+  },
+  {
+    "Id": 4,
+    "Username": "hanzadeninki",
+    "Password": "0Wu/IgTcgAgrMm0wHEthgb35HlxSH0hj718bMi/WuRQ=",
+    "IsAdmin": true
   }
 ]
