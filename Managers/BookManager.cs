@@ -44,8 +44,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 throw new InvalidOperationException("Bu ISBN ile zaten bir kitap mevcut");
 
             _books.Add(book);
-            DatabaseDataProvider db = new DatabaseDataProvider();
-            db.AddBook(book);
+            
             SaveBooks();
         }
 
@@ -60,8 +59,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 throw new KeyNotFoundException("Belirtilen ISBN ile kitap bulunamadı");
 
             _books.Remove(bookToRemove);
-            DatabaseDataProvider db = new DatabaseDataProvider();
-            db.DeleteBookByIsbn(isbn);
+            
             SaveBooks();
         }
 
@@ -78,8 +76,7 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 throw new KeyNotFoundException("Güncellenecek kitap bulunamadı");
 
             _books[index] = book;
-            DatabaseDataProvider db = new DatabaseDataProvider();
-            db.UpdateBookByIsbn(book);
+            
             SaveBooks();
         }
 

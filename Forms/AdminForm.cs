@@ -4,13 +4,14 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+using KutuphaneYonetimSistemiGUI.SQLManeger;
 namespace KutuphaneYonetimSistemiGUI.Forms
 {
     public partial class AdminForm : Form
     {
         private readonly BookManager _bookManager;
         private readonly LoanManager _loanManager;
+        private readonly SqlBookManager _sqlBookManager;
         private DataGridView dgvBooks;
         private Button btnAdd, btnDelete, btnUpdate, btnRefresh, btnLoan;
         private TextBox txtTitle, txtAuthor, txtISBN;
@@ -333,6 +334,8 @@ namespace KutuphaneYonetimSistemiGUI.Forms
                 };
 
                 _bookManager.AddBook(newBook);
+                _sqlBookManager.AddBook(newBook);
+
                 LoadBooks();
                 ClearFields();
 
@@ -365,6 +368,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
                 };
 
                 _bookManager.UpdateBook(updatedBook);
+                _sqlBookManager.UpdateBook(updatedBook);
                 LoadBooks();
 
                 MessageBox.Show("Kitap başarıyla güncellendi.", "Başarılı",
@@ -395,6 +399,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
                 {
                     string isbn = txtISBN.Text.Trim();
                     _bookManager.DeleteBook(isbn);
+                    _sqlBookManager.DeleteBook(isbn);
                     LoadBooks();
                     ClearFields();
 

@@ -43,6 +43,7 @@
             this.KullaniciAdi_txt.Name = "KullaniciAdi_txt";
             this.KullaniciAdi_txt.Size = new System.Drawing.Size(248, 22);
             this.KullaniciAdi_txt.TabIndex = 0;
+            this.KullaniciAdi_txt.TextChanged += new System.EventHandler(this.KullaniciAdi_txt_TextChanged);
             // 
             // label1
             // 

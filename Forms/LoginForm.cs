@@ -1,5 +1,7 @@
 ﻿using KutuphaneYonetimSistemiGUI.Managers;
 using KutuphaneYonetimSistemiGUI.sqlbaglantest;
+using KutuphaneYonetimSistemiGUI.SQLManeger;
+
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,7 +10,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
   public partial class LoginForm : Form
     {
         private readonly UserManager _userManager;
-
+        private readonly SqlUserManager _sqlUserManager;
         // Form kontrolleri
         private TextBox txtUsername;
         private TextBox txtPassword;
@@ -29,6 +31,9 @@ namespace KutuphaneYonetimSistemiGUI.Forms
         {
             InitializeComponent();
             _userManager = new UserManager();
+            _sqlUserManager = new SqlUserManager();
+
+
         }
 
         private void InitializeComponent()
@@ -58,6 +63,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(150, 22);
             this.txtUsername.TabIndex = 1;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // txtPassword
             // 
@@ -239,7 +245,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RegisterForm registerForm = new RegisterForm(_userManager);
+            RegisterForm registerForm = new RegisterForm(_userManager,_sqlUserManager);
             registerForm.Show();
         }
 
@@ -276,6 +282,11 @@ namespace KutuphaneYonetimSistemiGUI.Forms
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -1,5 +1,6 @@
 ﻿using KutuphaneYonetimSistemiGUI.Managers;
 using KutuphaneYonetimSistemiGUI.Models;
+using KutuphaneYonetimSistemiGUI.SQLManeger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace KutuphaneYonetimSistemiGUI.Forms
         private readonly string _userName;
         private readonly BookManager _bookManager;
         private readonly LoanManager _loanManager;
-
+        private readonly SqlUserManager _sqlUserManager;
         // Form kontrolleri
         private DataGridView dataGridViewAvailableBooks;
         private DataGridView dataGridViewBorrowedBooks;
@@ -29,57 +30,64 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             _userName = username;
             _bookManager = new BookManager();
             _loanManager = new LoanManager();
+            _sqlUserManager = new SqlUserManager();
             LoadAvailableBooks();
             LoadBorrowedBooks();
         }
 
         private void InitializeComponent()
         {
-            this.dataGridViewAvailableBooks = new DataGridView();
-            this.dataGridViewBorrowedBooks = new DataGridView();
-            this.btnRequestLoan = new Button();
-            this.btnReturnBook = new Button();
-
+            this.dataGridViewAvailableBooks = new System.Windows.Forms.DataGridView();
+            this.dataGridViewBorrowedBooks = new System.Windows.Forms.DataGridView();
+            this.btnRequestLoan = new System.Windows.Forms.Button();
+            this.btnReturnBook = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailableBooks)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBorrowedBooks)).BeginInit();
             this.SuspendLayout();
-
             // 
             // dataGridViewAvailableBooks
             // 
+            this.dataGridViewAvailableBooks.ColumnHeadersHeight = 29;
             this.dataGridViewAvailableBooks.Location = new System.Drawing.Point(12, 12);
-            this.dataGridViewAvailableBooks.Name = "dataGridViewAvailableBooks";
-            this.dataGridViewAvailableBooks.Size = new System.Drawing.Size(400, 150);
-            this.dataGridViewAvailableBooks.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAvailableBooks.MultiSelect = false;
+            this.dataGridViewAvailableBooks.Name = "dataGridViewAvailableBooks";
             this.dataGridViewAvailableBooks.ReadOnly = true;
-
+            this.dataGridViewAvailableBooks.RowHeadersWidth = 51;
+            this.dataGridViewAvailableBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAvailableBooks.Size = new System.Drawing.Size(400, 150);
+            this.dataGridViewAvailableBooks.TabIndex = 0;
+            this.dataGridViewAvailableBooks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAvailableBooks_CellContentClick);
             // 
             // dataGridViewBorrowedBooks
             // 
+            this.dataGridViewBorrowedBooks.ColumnHeadersHeight = 29;
             this.dataGridViewBorrowedBooks.Location = new System.Drawing.Point(12, 200);
-            this.dataGridViewBorrowedBooks.Name = "dataGridViewBorrowedBooks";
-            this.dataGridViewBorrowedBooks.Size = new System.Drawing.Size(400, 150);
-            this.dataGridViewBorrowedBooks.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewBorrowedBooks.MultiSelect = false;
+            this.dataGridViewBorrowedBooks.Name = "dataGridViewBorrowedBooks";
             this.dataGridViewBorrowedBooks.ReadOnly = true;
-
+            this.dataGridViewBorrowedBooks.RowHeadersWidth = 51;
+            this.dataGridViewBorrowedBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewBorrowedBooks.Size = new System.Drawing.Size(400, 150);
+            this.dataGridViewBorrowedBooks.TabIndex = 1;
+            this.dataGridViewBorrowedBooks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBorrowedBooks_CellContentClick);
             // 
             // btnRequestLoan
             // 
             this.btnRequestLoan.Location = new System.Drawing.Point(430, 50);
             this.btnRequestLoan.Name = "btnRequestLoan";
             this.btnRequestLoan.Size = new System.Drawing.Size(120, 40);
+            this.btnRequestLoan.TabIndex = 2;
             this.btnRequestLoan.Text = "Ödünç Al";
-            this.btnRequestLoan.Click += new EventHandler(this.btnRequestLoan_Click);
-
+            this.btnRequestLoan.Click += new System.EventHandler(this.btnRequestLoan_Click);
             // 
             // btnReturnBook
             // 
             this.btnReturnBook.Location = new System.Drawing.Point(430, 250);
             this.btnReturnBook.Name = "btnReturnBook";
             this.btnReturnBook.Size = new System.Drawing.Size(120, 40);
+            this.btnReturnBook.TabIndex = 3;
             this.btnReturnBook.Text = "İade Et";
-            this.btnReturnBook.Click += new EventHandler(this.btnReturnBook_Click);
-
+            this.btnReturnBook.Click += new System.EventHandler(this.btnReturnBook_Click);
             // 
             // UserForm
             // 
@@ -90,8 +98,10 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             this.Controls.Add(this.btnReturnBook);
             this.Name = "UserForm";
             this.Text = "Kullanıcı Kitap İşlemleri";
-
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailableBooks)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBorrowedBooks)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private void LoadAvailableBooks()
@@ -112,7 +122,8 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             {
                 Book selectedBook = (Book)dataGridViewAvailableBooks.SelectedRows[0].DataBoundItem;
                 // parametre sırasını ve tipi kontrol et
-                _loanManager.BorrowBook(_userId, selectedBook.ISBN); // userId int, ISBN string
+                _loanManager.BorrowBook(_userId, selectedBook.ISBN);
+                
                 LoadAvailableBooks();
                 LoadBorrowedBooks();
             }
@@ -135,6 +146,16 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             {
                 MessageBox.Show("Lütfen iade etmek istediğiniz kitabı seçin.");
             }
+        }
+
+        private void dataGridViewAvailableBooks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewBorrowedBooks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

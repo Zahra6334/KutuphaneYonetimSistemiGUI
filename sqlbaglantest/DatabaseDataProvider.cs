@@ -133,7 +133,50 @@ public class DatabaseDataProvider
             }
         }
 
+        internal void LoanBook(string isbn, int userid)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO Loan (UserId,ISBN,LoanDate,ReturnDate,Status) VALUES (@UserId,@ISBN,@LoanDate,@ReturnDate,@Status)";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@UserId", userid);
+                cmd.Parameters.AddWithValue("@ISBN", isbn);
+                cmd.Parameters.AddWithValue("@LoanDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@ReturnDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@Status", "Beklemede");
 
 
+
+
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+        public int GetUserIdByUsername(string username)
+        {
+            using (SqlConnection connection = new SqlConnection("senin_connection_stringin"))
+            {
+                connection.Open();
+                string query = "SELECT Id FROM Users WHERE Username = @username";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    object result = command.ExecuteScalar();
+
+                    if (result == null)
+                        throw new Exception("Kullanıcı bulunamadı.");
+
+                    return Convert.ToInt32(result);
+                }
+            }
+        }
+
+        internal void ReturnBook(string isbn)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

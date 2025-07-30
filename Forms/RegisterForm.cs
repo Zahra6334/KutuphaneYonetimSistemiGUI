@@ -1,4 +1,5 @@
 ﻿using KutuphaneYonetimSistemiGUI.Managers;
+using KutuphaneYonetimSistemiGUI.SQLManeger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,12 @@ namespace KutuphaneYonetimSistemiGUI.Forms
     {
 
         private readonly UserManager _userManager;
-        public RegisterForm(UserManager userManager)
+        private readonly SqlUserManager _sqlUserManager;
+        public RegisterForm(UserManager userManager,SqlUserManager sqluserManager)
         {
             _userManager = userManager;
+            _sqlUserManager = sqluserManager;
+
             InitializeComponent();
         }
 
@@ -33,10 +37,17 @@ namespace KutuphaneYonetimSistemiGUI.Forms
             if (_userManager.Register(kullaniciadi, sifre))
             {
                 uyarı_lbl.Text = "Kayıt başarılı";
+               
+
+            }
+            if (_sqlUserManager.Register(kullaniciadi, sifre))
+            {
+                uyarı_lbl.Text = "Kayıt başarılı";
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
 
             }
+
 
         }
 
@@ -49,6 +60,11 @@ namespace KutuphaneYonetimSistemiGUI.Forms
         {
             LoginForm loginForm=new LoginForm();
             loginForm.Show();
+        }
+
+        private void KullaniciAdi_txt_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

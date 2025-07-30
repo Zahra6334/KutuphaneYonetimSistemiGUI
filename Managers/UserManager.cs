@@ -49,9 +49,6 @@ namespace KutuphaneYonetimSistemiGUI.Managers
                 IsAdmin = isAdmin
             };
 
-            
-            db.AddUser(newUser);
-
             _users.Add(newUser);
             SaveUsers(); // Dosyaya kaydet
             return true;

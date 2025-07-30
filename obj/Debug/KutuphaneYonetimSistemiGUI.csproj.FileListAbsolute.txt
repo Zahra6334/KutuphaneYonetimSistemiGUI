@@ -16,3 +16,4 @@ C:\Users\ZAHRA\source\repos\KutuphaneYonetimSistemiGUI\KutuphaneYonetimSistemiGU
 C:\Users\ZAHRA\source\repos\KutuphaneYonetimSistemiGUI\KutuphaneYonetimSistemiGUI\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\ZAHRA\source\repos\KutuphaneYonetimSistemiGUI\KutuphaneYonetimSistemiGUI\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\ZAHRA\source\repos\KutuphaneYonetimSistemiGUI\KutuphaneYonetimSistemiGUI\obj\Debug\KutuphaneYonetimSistemiGUI.Forms.RegisterForm.resources
+C:\Users\ZAHRA\source\repos\KutuphaneYonetimSistemiGUI\KutuphaneYonetimSistemiGUI\obj\Debug\KutuphaneYonetimSistemiGUI.Forms.UserForm.resources
